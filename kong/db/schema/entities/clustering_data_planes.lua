@@ -24,6 +24,7 @@ return {
     { config_hash = { type = "string", len_eq = 32, } },
     { hostname = typedefs.host { required = true, } },
     { version = typedefs.semantic_version },
+    { cert_exp_date = { type = "integer", timestamp = true } },
     { sync_status = { type = "string",
                       required = true,
                       one_of = SYNC_STATUS_CHOICES,
