@@ -548,7 +548,7 @@ local function new(self, major_version)
 
   local function send(status, body, headers)
     kong.log.err("send enter")
-    
+
     if ngx.headers_sent then
       error("headers have already been sent", 2)
     end
@@ -683,6 +683,8 @@ local function new(self, major_version)
     if is_header_filter_phase then
       return ngx.exit(ngx.OK)
     end
+
+    kong.log.err("ngx.exit(status) status=" .. status)
 
     return ngx.exit(status)
   end
