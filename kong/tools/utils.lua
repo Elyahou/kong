@@ -1333,6 +1333,8 @@ do
   end
   
   get_error_template = function(mime_type)
+  get_configured_error_template(mime_type)
+  
     if mime_type == CONTENT_TYPE_JSON or mime_type == MIME_TYPES[CONTENT_TYPE_JSON] then
       return ERROR_TEMPLATES[CONTENT_TYPE_JSON]
 
