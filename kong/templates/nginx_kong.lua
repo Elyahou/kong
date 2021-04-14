@@ -330,6 +330,23 @@ server {
             Kong.handle_error()
         }
     }
+
+    location = /custom_kong_error_handler {
+        internal;
+        default_type                 '';
+
+        uninitialized_variable_warn  off;
+
+        rewrite_by_lua_block {;}
+        access_by_lua_block  {;}
+
+        content_by_lua_block {
+            kong.log.err("/kong_error_handler")
+            Kong.handle_error()
+        }
+    }
+
+
 }
 > end -- (role == "traditional" or role == "data_plane") and #proxy_listeners > 0
 
