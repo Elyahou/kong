@@ -1302,6 +1302,8 @@ do
 ]],
   }
 
+  kong.log.inspect(kong.configuration)
+
   get_mime_type = function(content_header, use_default)
     use_default = use_default == nil or use_default
     content_header = _M.strip(content_header)
