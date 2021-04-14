@@ -308,6 +308,8 @@ end
 
 
 local function flush_delayed_response(ctx)
+  kong.log.err("flush_delayed_response")
+
   ctx.delay_response = nil
   ctx.buffered_proxying = nil
 
@@ -1308,6 +1310,8 @@ end
 
 
 function Kong.handle_error()
+  kong.log.err("Kong.handle_error enter")
+  
   kong_resty_ctx.apply_ref()
   kong_global.set_phase(kong, PHASES.error)
 

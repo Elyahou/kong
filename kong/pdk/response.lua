@@ -787,6 +787,8 @@ local function new(self, major_version)
     -- return kong.response.exit(200, "Success")
     -- ```
     function _RESPONSE.exit(status, body, headers)
+      kong.log.err("_RESPONSE.exit enter")
+
       if self.worker_events and ngx.get_phase() == "content" then
         self.worker_events.poll()
       end
@@ -820,6 +822,7 @@ local function new(self, major_version)
       ctx.KONG_EXITED = true
 
       if ctx.delay_response and not ctx.delayed_response then
+        kong.log.err("_RESPONSE.exit ctx.delayed_response")
         ctx.delayed_response = {
           status_code = status,
           content     = body,
@@ -830,6 +833,7 @@ local function new(self, major_version)
         coroutine.yield()
 
       else
+        kong.log.err("_RESPONSE.exit send")
         return send(status, body, headers)
       end
     end
@@ -963,6 +967,8 @@ local function new(self, major_version)
   --
   -- return kong.response.error(403)
   function _RESPONSE.error(status, message, headers)
+    kong.log.err("_RESPONSE.error enter")
+
     if self.worker_events and ngx.get_phase() == "content" then
       self.worker_events.poll()
     end
@@ -1026,6 +1032,8 @@ local function new(self, major_version)
     ctx.KONG_EXITED = true
 
     if ctx.delay_response and not ctx.delayed_response then
+      kong.log.err("_RESPONSE.error ctx.delayed_response")
+
       ctx.delayed_response = {
         status_code = status,
         content     = body,
@@ -1036,6 +1044,7 @@ local function new(self, major_version)
       coroutine.yield()
 
     else
+      kong.log.err("_RESPONSE.error send")
       return send(status, body, headers)
     end
   end

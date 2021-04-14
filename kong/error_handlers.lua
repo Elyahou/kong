@@ -28,6 +28,7 @@ local BODIES = {
 
 
 return function(ctx)
+  kong.log.err("error_handlers enter")
   local accept_header = kong.request.get_header(ACCEPT)
   if accept_header == nil then
     accept_header = kong.request.get_header(CONTENT_TYPE)
