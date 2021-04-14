@@ -548,7 +548,6 @@ local function new(self, major_version)
 
   local function send(status, body, headers)
     kong.log.err("send enter")
-    kong.log.err("body: " .. body)
     
     if ngx.headers_sent then
       error("headers have already been sent", 2)
