@@ -270,8 +270,7 @@ local function execute_plugins_iterator(plugins_iterator, phase, ctx)
       if not cok then
         kong.log.err(cerr)
         ctx.delayed_response = {
-          status_code = 500,
-          content = { message  = "An unexpected error occurred" },
+          status_code = 500
         }
       end
     end
