@@ -75,7 +75,7 @@ server {
 > end
 
     error_page 400 404 408 411 412 413 414 417 494 /kong_error_handler;
-    error_page 500 502 503 504 505                     /kong_error_handler;
+    error_page 500 502 503 504                     /kong_error_handler;
 
     access_log ${{PROXY_ACCESS_LOG}};
     error_log  ${{PROXY_ERROR_LOG}} ${{LOG_LEVEL}};
@@ -90,6 +90,8 @@ server {
         Kong.ssl_certificate()
     }
 > end
+    error_page 505                     /kong_error_handler;
+    error_page 506                     /custom_kong_error_handler;
 
     # injected nginx_proxy_* directives
 > for _, el in ipairs(nginx_proxy_directives) do
