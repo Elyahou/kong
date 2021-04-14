@@ -1330,6 +1330,7 @@ do
 
   get_configured_error_template = function(mime_type)
     kong.log.inspect(kong.configuration.error_template)
+    kong.log.inspect(kong.configuration.trusted_ips)
   end
   
   get_error_template = function(mime_type)
