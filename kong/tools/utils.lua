@@ -1302,8 +1302,6 @@ do
 ]],
   }
 
-  kong.log.inspect(kong.configuration)
-
   get_mime_type = function(content_header, use_default)
     use_default = use_default == nil or use_default
     content_header = _M.strip(content_header)
@@ -1330,7 +1328,10 @@ do
     return nil, "could not find MIME type"
   end
 
-
+  get_configured_error_template = function(mime_type)
+    kong.log.inspect(kong.configuration)
+  end
+  
   get_error_template = function(mime_type)
     if mime_type == CONTENT_TYPE_JSON or mime_type == MIME_TYPES[CONTENT_TYPE_JSON] then
       return ERROR_TEMPLATES[CONTENT_TYPE_JSON]
