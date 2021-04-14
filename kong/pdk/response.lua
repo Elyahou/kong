@@ -635,6 +635,7 @@ local function new(self, major_version)
         ngx.ctx.response_body = json
 
       else
+        kong.log.err("ngx.print(json)")
         ngx.print(json)
       end
 
