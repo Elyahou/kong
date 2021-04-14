@@ -314,10 +314,12 @@ local function flush_delayed_response(ctx)
   ctx.buffered_proxying = nil
 
   if type(ctx.delayed_response_callback) == "function" then
+    kong.log.err("before setting ctx.delayed_response_callback")
     ctx.delayed_response_callback(ctx)
     return -- avoid tail call
   end
 
+  kong.log.err("before kong.response.exit")
   kong.response.exit(ctx.delayed_response.status_code,
                      ctx.delayed_response.content,
                      ctx.delayed_response.headers)
@@ -1311,7 +1313,7 @@ end
 
 function Kong.handle_error()
   kong.log.err("Kong.handle_error enter")
-  
+
   kong_resty_ctx.apply_ref()
   kong_global.set_phase(kong, PHASES.error)
 
