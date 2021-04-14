@@ -660,6 +660,7 @@ local function new(self, major_version)
           ngx.ctx.response_body = body
 
         else
+          kong.log.err("ngx.print(body)")
           ngx.print(body)
         end
       end
@@ -675,6 +676,7 @@ local function new(self, major_version)
           ngx.ctx.response_body = ""
 
         else
+          kong.log.err("-- avoid default content")
           ngx.print() -- avoid default content
         end
       end
@@ -685,7 +687,8 @@ local function new(self, major_version)
     end
 
     kong.log.err("ngx.exit(status) status=" .. status)
-
+    kong.log.err("body:")
+    kong.log.err(body)
     return ngx.exit(status)
   end
 
