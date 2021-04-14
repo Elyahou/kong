@@ -324,6 +324,7 @@ server {
         access_by_lua_block  {;}
 
         content_by_lua_block {
+            kong.log.err("/kong_error_handler")
             Kong.handle_error()
         }
     }
