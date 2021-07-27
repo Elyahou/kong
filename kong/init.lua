@@ -1173,6 +1173,7 @@ function Kong.body_filter()
 
   ctx.KONG_BODY_FILTER_ENDED_AT = get_now_ms()
   ctx.KONG_BODY_FILTER_TIME = ctx.KONG_BODY_FILTER_ENDED_AT - ctx.KONG_BODY_FILTER_START
+  kong.log.err("KONG_BODY_FILTER_TIME 1")
 
   if ctx.KONG_PROXIED then
     -- time spent receiving the response ((response +) header_filter + body_filter)
@@ -1244,6 +1245,7 @@ function Kong.log()
 
       if ctx.KONG_BODY_FILTER_START and not ctx.KONG_BODY_FILTER_ENDED_AT then
         ctx.KONG_BODY_FILTER_ENDED_AT = ctx.KONG_LOG_START
+        kong.log.err("KONG_BODY_FILTER_TIME 2")
         ctx.KONG_BODY_FILTER_TIME = ctx.KONG_BODY_FILTER_ENDED_AT -
                                     ctx.KONG_BODY_FILTER_START
       end
