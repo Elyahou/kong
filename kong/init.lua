@@ -1170,6 +1170,13 @@ function Kong.body_filter()
   kong.log.err("chunk")
   kong.log.err(arg[1])
 
+  if not arg[2] then
+    ctx.response_body_test = (ctx.response_body_test or "") .. (arg[1] or "")
+  else
+    kong.log.err("Final response")
+    kong.log.err(ctx.response_body_test)
+  end
+
   local plugins_iterator = runloop.get_plugins_iterator()
   execute_plugins_iterator(plugins_iterator, "body_filter", ctx)
 
