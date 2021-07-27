@@ -1112,6 +1112,7 @@ end
 
 
 function Kong.body_filter()
+  kong.log.err("Kong.body_filter() start")
   local ctx = ngx.ctx
   if not ctx.KONG_BODY_FILTER_START then
     ctx.KONG_BODY_FILTER_START = get_now_ms()
@@ -1174,6 +1175,8 @@ function Kong.body_filter()
   ctx.KONG_BODY_FILTER_ENDED_AT = get_now_ms()
   ctx.KONG_BODY_FILTER_TIME = ctx.KONG_BODY_FILTER_ENDED_AT - ctx.KONG_BODY_FILTER_START
   kong.log.err("KONG_BODY_FILTER_TIME 1")
+  kong.log.err("KONG_BODY_FILTER_TIME:" .. ctx.KONG_BODY_FILTER_TIME)
+  kong.log.err("Kong.body_filter() end")
 
   if ctx.KONG_PROXIED then
     -- time spent receiving the response ((response +) header_filter + body_filter)
