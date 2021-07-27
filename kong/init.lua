@@ -1167,6 +1167,9 @@ function Kong.body_filter()
     arg[2] = true
   end
 
+  kong.log.err("chunk")
+  kong.log.err(arg[1])
+
   local plugins_iterator = runloop.get_plugins_iterator()
   execute_plugins_iterator(plugins_iterator, "body_filter", ctx)
 
