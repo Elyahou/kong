@@ -1161,6 +1161,8 @@ function Kong.body_filter()
   kong_global.set_phase(kong, PHASES.body_filter)
 
   if ctx.response_body then
+    kong.log.err("ctx.response_body")
+    kong.log.err(ctx.response_body)
     arg[1] = ctx.response_body
     arg[2] = true
   end
@@ -1169,6 +1171,7 @@ function Kong.body_filter()
   execute_plugins_iterator(plugins_iterator, "body_filter", ctx)
 
   if not arg[2] then
+    kong.log.err("return")
     return
   end
 
