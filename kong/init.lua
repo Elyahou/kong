@@ -851,6 +851,7 @@ do
     end
 
     if not ctx.KONG_WAITING_TIME then
+      kong.log.err("SET KONG_WAITING_TIME 2")
       ctx.KONG_WAITING_TIME = ctx.KONG_RESPONSE_START -
         (ctx.KONG_BALANCER_ENDED_AT or ctx.KONG_ACCESS_ENDED_AT)
     end
@@ -1085,6 +1086,7 @@ function Kong.header_filter()
 
   if ctx.KONG_PROXIED then
     if not ctx.KONG_WAITING_TIME then
+      kong.log.err("SET KONG_WAITING_TIME 3")
       ctx.KONG_WAITING_TIME = (ctx.KONG_RESPONSE_START    or ctx.KONG_HEADER_FILTER_START) -
                               (ctx.KONG_BALANCER_ENDED_AT or ctx.KONG_ACCESS_ENDED_AT)
     end
@@ -1167,16 +1169,6 @@ function Kong.body_filter()
     arg[2] = true
   end
 
-  kong.log.err("chunk")
-  kong.log.err(arg[1])
-
-  if not arg[2] then
-    ctx.response_body_test = (ctx.response_body_test or "") .. (arg[1] or "")
-  else
-    kong.log.err("Final response")
-    kong.log.err(ctx.response_body_test)
-  end
-
   local plugins_iterator = runloop.get_plugins_iterator()
   execute_plugins_iterator(plugins_iterator, "body_filter", ctx)
 
@@ -1195,6 +1187,7 @@ function Kong.body_filter()
     -- time spent receiving the response ((response +) header_filter + body_filter)
     -- we could use $upstream_response_time but we need to distinguish the waiting time
     -- from the receiving time in our logging plugins (especially ALF serializer).
+    kong.log.err("Set ctx.KONG_RECEIVE_TIME 1")
     ctx.KONG_RECEIVE_TIME = ctx.KONG_BODY_FILTER_ENDED_AT - (ctx.KONG_RESPONSE_START or
                                                              ctx.KONG_HEADER_FILTER_START or
                                                              ctx.KONG_BALANCER_ENDED_AT or
@@ -1267,6 +1260,7 @@ function Kong.log()
       end
 
       if ctx.KONG_PROXIED and not ctx.KONG_WAITING_TIME then
+        kong.log.err("SET KONG_WAITING_TIME 1")
         ctx.KONG_WAITING_TIME = ctx.KONG_LOG_START -
                                 (ctx.KONG_BALANCER_ENDED_AT or ctx.KONG_ACCESS_ENDED_AT)
       end
