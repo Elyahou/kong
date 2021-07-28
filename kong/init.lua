@@ -1193,7 +1193,7 @@ function Kong.body_filter()
                                                              ctx.KONG_BALANCER_ENDED_AT or
                                                              ctx.KONG_BALANCER_START or
                                                              ctx.KONG_ACCESS_ENDED_AT)
-    kong.log.err("ctx.KONG_RESPONSE_START: " .. ctx.KONG_RESPONSE_START)
+    kong.log.err("ctx.KONG_RESPONSE_START: " .. (ctx.KONG_RESPONSE_START or "") )
     kong.log.err("ctx.KONG_HEADER_FILTER_START: " .. ctx.KONG_HEADER_FILTER_START)
     kong.log.err("ctx.KONG_RECEIVE_TIME: " .. ctx.KONG_RECEIVE_TIME)
   end
