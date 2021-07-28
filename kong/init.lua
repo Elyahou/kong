@@ -1187,12 +1187,15 @@ function Kong.body_filter()
     -- time spent receiving the response ((response +) header_filter + body_filter)
     -- we could use $upstream_response_time but we need to distinguish the waiting time
     -- from the receiving time in our logging plugins (especially ALF serializer).
-    kong.log.err("Set ctx.KONG_RECEIVE_TIME 1")
+    kong.log.err("set ctx.KONG_RECEIVE_TIME 1")
     ctx.KONG_RECEIVE_TIME = ctx.KONG_BODY_FILTER_ENDED_AT - (ctx.KONG_RESPONSE_START or
                                                              ctx.KONG_HEADER_FILTER_START or
                                                              ctx.KONG_BALANCER_ENDED_AT or
                                                              ctx.KONG_BALANCER_START or
                                                              ctx.KONG_ACCESS_ENDED_AT)
+    kong.log.err("ctx.KONG_RESPONSE_START: " .. ctx.KONG_RESPONSE_START)
+    kong.log.err("ctx.KONG_HEADER_FILTER_START: " .. ctx.KONG_HEADER_FILTER_START)
+    kong.log.err("ctx.KONG_RECEIVE_TIME: " .. ctx.KONG_RECEIVE_TIME)
   end
 end
 
