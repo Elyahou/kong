@@ -1026,6 +1026,7 @@ local function new(self, major_version)
     ctx.KONG_EXITED = true
 
     if ctx.delay_response and not ctx.delayed_response then
+      print("A")
       ctx.delayed_response = {
         status_code = status,
         content     = body,
@@ -1036,6 +1037,7 @@ local function new(self, major_version)
       coroutine.yield()
 
     else
+      print("B")
       return send(status, body, headers)
     end
   end
