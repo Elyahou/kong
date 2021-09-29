@@ -239,6 +239,18 @@ do
   end
 end
 
+local function access_phase_runner(access_function, plugin.handler, configuration)
+
+  return function(handler, conf)
+    local ok, err = pcall(access_function, handler, conf)
+
+    if not ok then
+      kong.log.err(cerr)
+      kong.response.error(500)
+    end
+  end
+end
+
 
 local function execute_plugins_iterator(plugins_iterator, phase, ctx)
   local old_ws
@@ -265,12 +277,8 @@ local function execute_plugins_iterator(plugins_iterator, phase, ctx)
       plugin.handler[phase](plugin.handler, configuration)
 
     elseif not ctx.delayed_response then
-      local co = coroutine.create(plugin.handler.access)
-      local cok, cerr = coroutine.resume(co, plugin.handler, configuration)
-      if not cok then
-        kong.log.err(cerr)
-        kong.response.error(500)
-      end
+      local co = coroutine.create(access_phase_runner(plugin.handler.access))
+      coroutine.resume(co, plugin.handler, configuration)
     end
 
     kong_global.reset_log(kong)

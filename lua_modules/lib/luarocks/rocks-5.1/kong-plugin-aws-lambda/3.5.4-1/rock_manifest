@@ -1,0 +1,26 @@
+rock_manifest = {
+   doc = {
+      ["CHANGELOG.md"] = "df9b4a335dc01a02a12995eb0e996d6f",
+      LICENSE = "86d3f3a95c324c9479bd8986968f4327",
+      ["README.md"] = "fee5838a2f5a97efb388887b7b7337e7"
+   },
+   ["kong-plugin-aws-lambda-3.5.4-1.rockspec"] = "7d9bbf4455d03f64ba88f73c01638e63",
+   lua = {
+      kong = {
+         plugins = {
+            ["aws-lambda"] = {
+               ["aws-serializer.lua"] = "843390d4d15b0ca963ecad2edc29e3ee",
+               ["handler.lua"] = "d404c848c3c90b195f89ce14de503c4f",
+               http = {
+                  ["connect-better.lua"] = "1813ca059b097fb4dd614c1b21a82e55"
+               },
+               ["iam-ec2-credentials.lua"] = "ef41f6c53f9c9389e88c0927647a8d1e",
+               ["iam-ecs-credentials.lua"] = "c647fed082e20b57d53e2ba347995164",
+               ["request-util.lua"] = "bf43858cbc778508dd759dd8d0db9cc0",
+               ["schema.lua"] = "e51d576d06d4fe2bb9a35cec6ae20a47",
+               ["v4.lua"] = "b9935f5d02f6af1ad86c247503afbeb4"
+            }
+         }
+      }
+   }
+}
