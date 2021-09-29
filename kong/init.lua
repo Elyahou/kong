@@ -262,6 +262,7 @@ local function execute_plugins_iterator(plugins_iterator, phase, ctx)
   end
 
   for plugin, configuration in plugins_iterator:iterate(phase, ctx) do
+    print("Iterator: " .. plugin.name)
     if ctx then
       if plugin.handler._go then
         ctx.ran_go_plugin = true
