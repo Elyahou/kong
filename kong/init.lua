@@ -239,8 +239,7 @@ do
   end
 end
 
-local function access_phase_runner(access_function, plugin.handler, configuration)
-
+local function access_phase_runner(access_function, handler, configuration)
   return function(handler, conf)
     local ok, err = pcall(access_function, handler, conf)
 
