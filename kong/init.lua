@@ -244,7 +244,7 @@ local function access_phase_runner(access_function, handler, configuration)
     local ok, err = pcall(access_function, handler, conf)
 
     if not ok then
-      kong.log.err(cerr)
+      kong.log.err(err)
       kong.response.error(500)
     end
   end
